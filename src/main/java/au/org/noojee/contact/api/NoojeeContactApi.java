@@ -341,6 +341,7 @@ public class NoojeeContactApi
 		private boolean isClickToDialCall;
 		private boolean inbound;
 		private EndPointStatus status;
+		private String connectedCallerIdNum;
 
 		public EndPointStatus getStatus()
 		{
@@ -405,6 +406,9 @@ public class NoojeeContactApi
 			return inbound;
 		}
 
+		public String getConnectedCallerIdNum() {
+		    return connectedCallerIdNum;
+		}
 		/*
 		 * (non-Javadoc)
 		 * @see java.lang.Object#toString()
@@ -415,7 +419,7 @@ public class NoojeeContactApi
 			return "CallData [canAnswer=" + canAnswer + ", callerId=" + callerId + ", primaryUniqueCallId="
 					+ primaryUniqueCallId + ", secondaryUniqueCallId=" + secondaryUniqueCallId + ", callStartTime="
 					+ callStartTime + ", isQueueCall=" + isQueueCall + ", isClickToDialCall=" + isClickToDialCall
-					+ ", inbound=" + inbound + ", status=" + status + "]";
+					+ ", inbound=" + inbound + ", status=" + status + ", connectedCallerIdNum=" + connectedCallerIdNum + "]";
 		}
 
 	}

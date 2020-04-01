@@ -35,20 +35,24 @@ public class EndPointEvent
 		return event.callData.getPrimaryUniqueCallId();
 	}
 
-
-	
-
 	public NJPhoneNumber getCallerId()
 	{
 		return event.getCallerId();
 	}
 
+	public String getConnectedCallerIdNum() {
+	    return event.callData.getConnectedCallerIdNum();
+	}
 	
 	public boolean isInbound()
 	{
 		return event.callData.isInbound();
 	}
 
+    public boolean isClickToDialCall()
+    {
+        return event.callData.isClickToDialCall();
+    }
 	
 	
 

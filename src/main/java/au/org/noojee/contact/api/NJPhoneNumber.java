@@ -10,10 +10,22 @@ public class NJPhoneNumber
 		this.phoneNumber = phoneNumber;
 		
 	}
+	
+    // for gson.
+    public NJPhoneNumber()
+    {
+    }
+
+    
+    @Override
+    public String toString()
+    {
+        return this.phoneNumber.trim().replaceAll(" ", "");
+    }
 
 	public String compactString()
 	{
-		return this.phoneNumber .trim().replaceAll(" ", "");
+		return this.phoneNumber.trim().replaceAll(" ", "");
 	}
 
 	/* (non-Javadoc)
