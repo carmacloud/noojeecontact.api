@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Preparation') {
             steps {
-                git url: 'https://github.com/bhorvath/noojeecontact.api.git'
+                git url: 'https://github.com/carmacloud/noojeecontact.api.git'
             }
         }
         stage('Build') {
