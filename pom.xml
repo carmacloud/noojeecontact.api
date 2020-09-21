@@ -70,13 +70,14 @@
 		<dependency>
 			<groupId>com.github.spotbugs</groupId>
 			<artifactId>spotbugs</artifactId>
-			<version>3.1.7</version>
+			<version>${spotbugs.version}</version>
 		</dependency>
 	</dependencies>
 
 
 	<properties>
 		<log4j.version>2.13.3</log4j.version>
+		<spotbugs.version>4.1.2</spotbugs.version>
 	</properties>
 
 </project>
