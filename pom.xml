@@ -53,7 +53,7 @@
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk15on</artifactId>
-			<version>1.59</version>
+			<version>${bcprov-jdk15on.version}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
@@ -77,6 +77,7 @@
 
 	<properties>
 		<log4j.version>2.13.3</log4j.version>
+		<bcprov-jdk15on.version>1.59</bcprov-jdk15on.version>
 		<spotbugs.version>4.1.2</spotbugs.version>
 	</properties>
 
