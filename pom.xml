@@ -46,7 +46,7 @@
 		<dependency>
 			<groupId>org.joda</groupId>
 			<artifactId>joda-money</artifactId>
-			<version>0.12</version>
+			<version>${joda.money.version}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
@@ -79,6 +79,7 @@
 		<log4j.version>2.13.3</log4j.version>
 		<bcprov-jdk15on.version>1.59</bcprov-jdk15on.version>
 		<spotbugs.version>4.1.2</spotbugs.version>
+		<joda.money.version>1.0.1</joda.money.version>
 	</properties>
 
 </project>
