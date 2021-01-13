@@ -20,12 +20,20 @@ public class NJPhoneNumber
     @Override
     public String toString()
     {
-        return this.phoneNumber.trim().replaceAll(" ", "");
+        if (phoneNumber != null) {
+            return this.phoneNumber.trim().replaceAll(" ", "");
+        } else {
+            return "";
+        }
     }
 
 	public String compactString()
 	{
-		return this.phoneNumber.trim().replaceAll(" ", "");
+        if (phoneNumber != null) {
+            return this.phoneNumber.trim().replaceAll(" ", "");
+        } else {
+            return "";
+        }
 	}
 
 	/* (non-Javadoc)
