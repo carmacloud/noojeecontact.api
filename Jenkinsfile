@@ -4,14 +4,14 @@ pipeline {
     }
     agent {
         docker {
-            image 'maven:3.6.1-jdk-8-alpine'
+            image 'maven:3.8.3-jdk-8-alpine'
             args '-e MAVEN_CONFIG=/var/jenkins_home/.m2'
         }
     }
     stages {
         stage('Preparation') {
             steps {
-                git url: 'https://github.com/carmacloud/noojeecontact.api.git'
+                git url: 'https://github.com/carmacloud/noojeecontact.api.git', branch: 'upgrade14'
             }
         }
         stage('Build') {
