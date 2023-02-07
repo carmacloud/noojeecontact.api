@@ -62,6 +62,23 @@ public class NoojeeContactProtocalImpl
 
 	}
 
+	/// takes [urlString] and adds the apiKey and query to the url
+    public URL generateURL(String urlString, String apiKey, String query)
+    {
+        URL url = null;
+        try
+        {
+            url = new URL(urlString + "?apiKey=" + apiKey + (query != null ? "&" + query : ""));
+        }
+        catch (MalformedURLException e)
+        {
+            logger.error(e, e);
+        }
+
+        return url;
+
+    }
+
 	HTTPResponse request(HTTPMethod method, URL url, String jsonBody) throws NoojeeContactApiException
 	{
 		return request(method, url, jsonBody, "application/json");
@@ -105,7 +122,8 @@ public class NoojeeContactProtocalImpl
 														// anything silly.
 
 			connection.setConnectTimeout(5000);
-
+			connection.setReadTimeout(45000);
+			
 			connection.setRequestProperty("Content-Type", contentType + "; charset=UTF-8");
 
 			connection.connect();
@@ -162,6 +180,7 @@ public class NoojeeContactProtocalImpl
 		}
 		catch (IOException e)
 		{
+		    logger.error("For URL " + url.toString());
 			throw new NoojeeContactApiException(e);
 		}
 
