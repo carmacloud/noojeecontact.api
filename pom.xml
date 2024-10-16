@@ -14,7 +14,7 @@
 		<!-- Testing -->
 		<junit.version>4.13.2</junit.version>
 		<!-- Update any of the following, update dbupgrade.sh in carma as well-->
-		<log4j.version>2.23.1</log4j.version>
+		<log4j.version>2.24.1</log4j.version>
 	</properties>
 	
 	<build>
