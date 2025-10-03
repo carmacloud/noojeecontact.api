@@ -7,12 +7,13 @@
 	<version>24.0</version>
 	
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<bcprov-jdk15on.version>1.59</bcprov-jdk15on.version>
 		<spotbugs.version>4.9.6</spotbugs.version>
 		<joda.money.version>2.0.2</joda.money.version>
 		<gson.version>2.13.2</gson.version>
 		<!-- Testing dependency versions -->
-		<junit-jupiter-api.version>5.13.4</junit-jupiter-api.version>
+		<junit-jupiter-api.version>6.0.0</junit-jupiter-api.version>
 		<!-- Update any of the following, update dbupgrade.sh in carma as well-->
 		<log4j.version>2.25.2</log4j.version>
 	</properties>
