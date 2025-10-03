@@ -1,156 +1,133 @@
 package au.org.noojee.contact.api;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.CountDownLatch;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import au.org.noojee.api.enums.Protocol;
 import au.org.noojee.contact.api.NoojeeContactApi.SimpleResponse;
 
-public class PBXMonitorTest
-{
-	EndPoint e100 = new EndPoint("100");
-	EndPoint e101 = new EndPoint("101");
-	EndPoint e115 = new EndPoint("115");
-	EndPoint e106 = new EndPoint("106");
+public class PBXMonitorTest {
+    EndPoint e100 = new EndPoint("100");
+    EndPoint e101 = new EndPoint("101");
+    EndPoint e115 = new EndPoint("115");
+    EndPoint e106 = new EndPoint("106");
 
-	// The call we are originating.
-	private UniqueCallId uniqueCallIdToMonitor = null;
+    // The call we are originating.
+    private UniqueCallId uniqueCallIdToMonitor = null;
 
-	private boolean seenHangup;
+    private boolean seenHangup;
 
-	public PBXMonitorTest()
-	{
+    public PBXMonitorTest() {
 
-	}
+    }
 
-	@Test
-	public void test() throws InterruptedException
-	{
-		PBXMonitor monitor = PBXMonitor.SELF;
+    @Test
+    public void test() throws InterruptedException {
+        final PBXMonitor monitor = PBXMonitor.SELF;
 
-		try
-		{
-			monitor.start("pentest.clouddialer.com.au",
-					"1981a2cc-db08-11e8-a033-0016ec037d28",
-					Protocol.HTTPS);
+        try {
+            monitor.start("pentest.clouddialer.com.au", "1981a2cc-db08-11e8-a033-0016ec037d28", Protocol.HTTPS);
 
-			seenHangup = false;
+            seenHangup = false;
 
-			CountDownLatch answerLatch = new CountDownLatch(1);
+            final CountDownLatch answerLatch = new CountDownLatch(1);
 
-			monitor.subscribe(e115, monitor(answerLatch), "PBXMonitorTest");
+            monitor.subscribe(e115, monitor(answerLatch), "PBXMonitorTest");
 
-			monitor.subscribe(e106, monitor(answerLatch), "PBXMonitorTest");
+            monitor.subscribe(e106, monitor(answerLatch), "PBXMonitorTest");
 
-			monitor.subscribe(e115, new SubscriberAdapter()
-			{
-			}, "PBXMonitorTest");
-			monitor.subscribe(e101, new SubscriberAdapter()
-			{
-			}, "PBXMonitorTest");
-			monitor.subscribe(e100, new SubscriberAdapter()
-			{
-			}, "PBXMonitorTest");
+            monitor.subscribe(e115, new SubscriberAdapter() {
+            }, "PBXMonitorTest");
+            monitor.subscribe(e101, new SubscriberAdapter() {
+            }, "PBXMonitorTest");
+            monitor.subscribe(e100, new SubscriberAdapter() {
+            }, "PBXMonitorTest");
 
-			print("dialing");
-			monitor.dial(new NJPhoneNumber("106"), e115, "From PenTest", AutoAnswer.Yealink,
-					new NJPhoneNumber("0383208100"), true, "A Test Call");
+            print("dialing");
+            monitor.dial(new NJPhoneNumber("106"), e115, "From PenTest", AutoAnswer.Yealink,
+                    new NJPhoneNumber("0383208100"), true, "A Test Call");
 
-			print("Dial sent, now waiting");
+            print("Dial sent, now waiting");
 
-			answerLatch.await();
+            answerLatch.await();
 
-			print("Call connected");
+            print("Call connected");
 
-			// wait 10 seconds and hangup the call.
-			Thread.sleep(10000);
+            // wait 10 seconds and hangup the call.
+            Thread.sleep(10000);
 
-			SimpleResponse hangupResponse = monitor.hangup(uniqueCallIdToMonitor);
-			if (hangupResponse.wasSuccessful())
-				print("Hangup call was successful");
-			else
-				print("Hangup call was failed: " + hangupResponse.getMessage());
+            final SimpleResponse hangupResponse = monitor.hangup(uniqueCallIdToMonitor);
+            if (hangupResponse.wasSuccessful())
+                print("Hangup call was successful");
+            else
+                print("Hangup call was failed: " + hangupResponse.getMessage());
 
-			// wait a bit to see hangup succeed.
-			Thread.sleep(10000);
+            // wait a bit to see hangup succeed.
+            Thread.sleep(10000);
 
-			print("Ending");
+            print("Ending");
 
-			// api.hangup(uniqueCallId);
+            // api.hangup(uniqueCallId);
 
-		}
-		catch (NoojeeContactApiException e)
-		{
-			e.printStackTrace();
-			fail(e.getMessage());
-		}
-	}
+        } catch (final NoojeeContactApiException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
 
-	private SubscriberAdapter monitor(CountDownLatch answerLatch)
-	{
-		return new SubscriberAdapter()
-		{
+    private SubscriberAdapter monitor(final CountDownLatch answerLatch) {
+        return new SubscriberAdapter() {
 
-			@Override
-			public void hungup(EndPointEvent event)
-			{
-				if (uniqueCallIdToMonitor != null && uniqueCallIdToMonitor.equals(event.getPrimaryUniqueCallId()))
-				{
-					if (!seenHangup)
-						print("Call was hungup: " + event.getPrimaryUniqueCallId() + " for EndPoint: "
-								+ event.getEndPoint().extensionNo);
-					seenHangup = true;
-					// monitor.stop();
-				}
-				else
-					print("saw old hangup for:" + event.getPrimaryUniqueCallId());
-			}
+            @Override
+            public void hungup(final EndPointEvent event) {
+                if (uniqueCallIdToMonitor != null && uniqueCallIdToMonitor.equals(event.getPrimaryUniqueCallId())) {
+                    if (!seenHangup)
+                        print("Call was hungup: " + event.getPrimaryUniqueCallId() + " for EndPoint: "
+                                + event.getEndPoint().extensionNo);
+                    seenHangup = true;
+                    // monitor.stop();
+                } else
+                    print("saw old hangup for:" + event.getPrimaryUniqueCallId());
+            }
 
-			@Override
-			public void dialing(EndPointEvent event)
-			{
-				print("Recieved Dial Event: " + event.getEndPoint().extensionNo + " on "
-						+ event.getPrimaryUniqueCallId());
+            @Override
+            public void dialing(final EndPointEvent event) {
+                print("Recieved Dial Event: " + event.getEndPoint().extensionNo + " on "
+                        + event.getPrimaryUniqueCallId());
 
-				uniqueCallIdToMonitor = event.getPrimaryUniqueCallId();
-			}
+                uniqueCallIdToMonitor = event.getPrimaryUniqueCallId();
+            }
 
-			@Override
-			public void connected(EndPointEvent event)
-			{
-				print("Saw Connected endPoint: " + event.getEndPoint().extensionNo + " uniqueCallId:"
-						+ event.getPrimaryUniqueCallId());
-				if (uniqueCallIdToMonitor != null && uniqueCallIdToMonitor.equals(event.getPrimaryUniqueCallId()))
-				{
-					print("Connected endPoint: " + event.getEndPoint().extensionNo + " uniqueCallId:"
-							+ event.getPrimaryUniqueCallId());
+            @Override
+            public void connected(final EndPointEvent event) {
+                print("Saw Connected endPoint: " + event.getEndPoint().extensionNo + " uniqueCallId:"
+                        + event.getPrimaryUniqueCallId());
+                if (uniqueCallIdToMonitor != null && uniqueCallIdToMonitor.equals(event.getPrimaryUniqueCallId())) {
+                    print("Connected endPoint: " + event.getEndPoint().extensionNo + " uniqueCallId:"
+                            + event.getPrimaryUniqueCallId());
 
-					answerLatch.countDown();
-				}
-			}
+                    answerLatch.countDown();
+                }
+            }
 
-			@Override
-			public void ringing(EndPointEvent event)
-			{
-				// if (event.getEndPoint().extensionNo.equals("115"))
-				{
-					uniqueCallIdToMonitor = event.getPrimaryUniqueCallId();
+            @Override
+            public void ringing(final EndPointEvent event) {
+                // if (event.getEndPoint().extensionNo.equals("115"))
+                {
+                    uniqueCallIdToMonitor = event.getPrimaryUniqueCallId();
 
-					print("Ringing endPoint: " + event.getEndPoint().extensionNo + " uniqueCallId:"
-							+ event.getPrimaryUniqueCallId());
-				}
-			}
+                    print("Ringing endPoint: " + event.getEndPoint().extensionNo + " uniqueCallId:"
+                            + event.getPrimaryUniqueCallId());
+                }
+            }
+        };
+    }
 
-		};
-	}
+    private void print(final String string) {
+        System.out.println(string);
 
-	private void print(String string)
-	{
-		System.out.println(string);
-
-	}
-
+    }
 }
