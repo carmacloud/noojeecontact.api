@@ -21,9 +21,29 @@
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
+		<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+ 				<artifactId>maven-enforcer-plugin</artifactId>
+ 				<version>3.6.2</version>
+  				<executions>
+    				<execution>
+      					<id>enforce-maven</id>
+      						<goals>
+       							 <goal>enforce</goal>
+      						</goals>
+      						<configuration>
+       							 <rules>
+          							<requireMavenVersion>
+            							<version>[3.6.3,)</version>
+          							</requireMavenVersion>
+        						</rules>
+      						</configuration>
+    				</execution>
+  				</executions>
+			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
+				<version>3.14.1</version>
 				<configuration>
 					<target>11</target>
 					<source>11</source>
@@ -76,7 +96,6 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-
 
 		<!-- overwrite dependency on spotbugs if you want to specify the version 
 			of spotbugs -->
