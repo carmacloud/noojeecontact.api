@@ -15,7 +15,7 @@
 		<!-- Only include stable builds for dependency and plugin checks -->
 		<maven.version.ignore>(?i).*-(alpha|beta|m|rc|b)([-. ]?\d+)?</maven.version.ignore>
 		<!-- Testing dependency versions -->
-		<junit-jupiter-api.version>6.0.1</junit-jupiter-api.version>
+		<junit-jupiter-api.version>6.0.2</junit-jupiter-api.version>
 		<!-- Update any of the following, update dbupgrade.sh in carma as well-->
 		<log4j.version>2.25.2</log4j.version>
 	</properties>
@@ -23,26 +23,6 @@
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
-		<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
- 				<artifactId>maven-enforcer-plugin</artifactId>
- 				<version>3.6.2</version>
-  				<executions>
-    				<execution>
-      					<id>enforce-maven</id>
-      						<goals>
-       							 <goal>enforce</goal>
-      						</goals>
-      						<configuration>
-       							 <rules>
-          							<requireMavenVersion>
-            							<version>[3.6.3,)</version>
-          							</requireMavenVersion>
-        						</rules>
-      						</configuration>
-    				</execution>
-  				</executions>
-			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.14.1</version>
