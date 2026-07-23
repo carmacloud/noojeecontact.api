@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>au.com.noojee</groupId>
 	<artifactId>noojeecontact.api</artifactId>
-	<version>20.x</version>
+	<version>14.0</version>
 	
 	<properties>
 		<bcprov-jdk15on.version>1.59</bcprov-jdk15on.version>
