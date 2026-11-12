@@ -15,7 +15,7 @@
 		<!-- Testing -->
 		<junit.version>4.13.2</junit.version>
 		<!-- Update any of the following, update dbupgrade.sh in carma as well-->
-		<log4j.version>2.26.0</log4j.version>
+		<log4j.version>2.26.1</log4j.version>
 	</properties>
 	
 	<build>
@@ -24,7 +24,7 @@
 		<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
  				<artifactId>maven-enforcer-plugin</artifactId>
- 				<version>3.6.3</version>
+ 				<version>3.7.0</version>
   				<executions>
     				<execution>
       					<id>enforce-maven</id>
@@ -43,7 +43,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.15.0</version>
+				<version>3.16.0</version>
 				<configuration>
 					<target>11</target>
 					<source>11</source>
